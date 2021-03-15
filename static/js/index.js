@@ -1,64 +1,94 @@
 
-// Formats the script in the text area
-function formatScript() {
-  // let scriptText = document.getElementById('editor').innerHTML;
-  let editor = ace.edit("editor");
-  let scriptText = editor.getValue();
-  let scriptLines = scriptText.split("\n");
+let inputGem = document.getElementById('inputGem');
+let inputGold = document.getElementById('inputGold');
+let inputPacks = document.getElementById('inputPacks');
+let inputWildcards = document.getElementById('inputWildcards');
+let inputDollar = document.getElementById('inputDollar');
 
-  let formattedText = '';
-  let indentLength = 0;
+var nf = new Intl.NumberFormat();
 
-  let isElse = false;
+function calculateFromGem() {
+  gems = inputGem.value.replace(",", "");
+  packs = gems / 200;
+  gold = packs * 1000;
+  wildcards = packs / 6;
+  dollar = (gems * 0.0049995).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
-  for (const line of scriptLines) {
-    let trimmedLine = line.trim();
-    console.log("INFO: Processing line: " + trimmedLine);
+  if (packs < 1) packs = 0;
+  if (wildcards < 1) wildcards = 0;
 
-    // Reduces indent length if this is the end of a block
-    if (trimmedLine.startsWith("end-if")) {
-      indentLength -= 4;
-    } else if (trimmedLine.startsWith("end-for")) {
-      indentLength -= 4;
-    }
-
-    // Temporarily unindent for "else"
-    if (trimmedLine.startsWith("else")) {
-      isElse = true;
-      indentLength -= 4;
-    }
-
-    // Create the indent for this line
-    let indent = ' '.repeat(indentLength);
-
-    // Prepares the indent length for the next lines
-    if (trimmedLine.startsWith("if (") || trimmedLine.startsWith("if(")) {
-      indentLength += 4;
-    } else if (trimmedLine.startsWith("for (") || trimmedLine.startsWith("for(")) {
-      indentLength += 4;
-    } 
-
-    // Apply indent to current line
-    let formattedLine = indent + trimmedLine;
-    formattedText += formattedLine + "\n";
-
-    // Temporarily unindent for "else"
-    if (isElse) {
-      indentLength += 4;
-      isElse = false;
-    }
-  }
-
-  formattedText = formattedText.slice(0, -1);
-
-  // document.getElementById('editor').innherHTML = formattedText;
-  // let editor = ace.edit("editor");
-  editor.setValue(formattedText);
-  // editor.blur();
-  editor.focus();
-  // editor.clearSelection();
+  inputGem.value = nf.format(gems);
+  inputPacks.value = Math.trunc(packs);
+  inputGold.value = nf.format(gold);
+  inputWildcards.value = Math.trunc(wildcards);
+  inputDollar.value = dollar;
 }
 
-// Bind click event
-let btnSubmit = document.getElementById('btnSubmit');
-btnSubmit.addEventListener('click', formatScript);
+function calculateFromGold() {
+  gold = inputGold.value.replace(",", "");
+  gems = (gold / 1000) * 200;
+  packs = gold / 1000;
+  wildcards = packs / 6;
+  dollar = (gems * 0.0049995).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  if (packs < 1) packs = 0;
+  if (wildcards < 1) wildcards = 0;
+
+  inputGem.value = nf.format(gems);
+  inputPacks.value = Math.trunc(packs);
+  inputGold.value = nf.format(gold);
+  inputWildcards.value = Math.trunc(wildcards);
+  inputDollar.value = dollar;
+}
+
+function calculateFromPacks() {
+  packs = inputPacks.value;
+  gems = packs * 200;
+  gold = packs * 1000;
+  wildcards = packs / 6;
+  dollar = (gems * 0.0049995).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  if (packs < 1) packs = 0;
+  if (wildcards < 1) wildcards = 0;
+
+  inputGem.value = nf.format(gems);
+  inputPacks.value = Math.trunc(packs);
+  inputGold.value = nf.format(gold);
+  inputWildcards.value = Math.trunc(wildcards);
+  inputDollar.value = dollar;
+}
+
+function calculateFromWildcards() {
+  wildcards = inputWildcards.value;
+  packs = wildcards * 6;
+  gems = packs * 200;
+  gold = packs * 1000;
+  dollar = (gems * 0.0049995).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  if (packs < 1) packs = 0;
+  if (wildcards < 1) wildcards = 0;
+
+  inputGem.value = nf.format(gems);
+  inputPacks.value = Math.trunc(packs);
+  inputGold.value = nf.format(gold);
+  inputWildcards.value = Math.trunc(wildcards);
+  inputDollar.value = dollar;
+}
+
+inputGem.addEventListener('keyup', calculateFromGem);
+inputGold.addEventListener('keyup', calculateFromGold);
+inputPacks.addEventListener('keyup', calculateFromPacks);
+inputWildcards.addEventListener('keyup', calculateFromWildcards);
+// inputDollar.addEventListener('keyup', calculateFromDollar);

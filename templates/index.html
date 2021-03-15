@@ -3,33 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MTGA Calculator</title>
+  <title>MTGA Currency Converter</title>
 
   <link rel="stylesheet" href="/static/css/index.css">
-
-  <style type="text/css" media="screen">
-    #editor { 
-      width: 100%;
-      height: 500px;
-      position: relative;
-      border: 1px solid black;
-    }
-  </style>
 </head>
 <body>
 
-  <h1>MTGA Calculator</h1>
+  
 
-  <!-- <div class="container">
+  <div class="container">
     <div class="row">
-      <input id="btnSubmit" class="form__input form__input--button" type="button" value="Format">
 
-      <div id="editor"></div>
+      <h1>MTG Arena Currency Converter</h1>
+      <table style="width: 100%">
+        <colgroup>
+          <col span="1" style="width: 50%;">
+          <col span="1" style="width: 45%;">
+          <col span="1" style="width: 5%;">
+        </colgroup>
+        <tbody>
+          <tr>
+            <td class="resultHeader">Gems</td>
+            <td class="resultValue">
+              <input type="text" class="inputBox" id="inputGem" autofocus>
+            </td>
+            <td>
+              <img src="/static/img/gems.png" width="30px" height="30px">
+            </td>
+          </tr>
+          <tr>
+            <td class="resultHeader">Gold</td>
+            <td class="resultValue">
+              <input type="text" class="inputBox" id="inputGold">
+            </td>
+            <td>
+              <img src="/static/img/gold.png" width="30px" height="30px">
+            </td>
+          </tr>
+          <tr>
+            <td class="resultHeader">Packs</td>
+            <td class="resultValue">
+              <input type="text" class="inputBox" id="inputPacks">
+            </td>
+            <td>
+              <img src="/static/img/packs.png" width="30px" height="30px">
+            </td>
+          </tr>
+          <tr>
+            <td class="resultHeader">Rare Wildcards</td>
+            <td class="resultValue">
+              <input type="text" class="inputBox" id="inputWildcards">
+            </td>
+            <td>
+              <img src="/static/img/wildcard.png" width="30px" height="30px">
+            </td>
+          </tr>
+          <tr>
+            <td class="resultHeader">$$$</td>
+            <td class="resultValue">
+              <input type="text" class="inputBox" id="inputDollar" disabled>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="row2">
+      <p>
+        Notes:
+      </p>
+      <p>1) Wildcard calculation does not take into account the chance that a rare/mythic wildcard can be found inside a pack. This is only a "worst case scenario"; expect real world values to be much lower.</p>
+      <p>2) Dollar calculation assumes that you bought the 20,000 gem bundle, since that is the most cost efficient bundle in the store</p>
     </div>
+    
+
   </div>
 
-  <script src='/static/js/index.js'></script> -->
+  <script src='/static/js/index.js'></script>
   
 </body>
 </html>
